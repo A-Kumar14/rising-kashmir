@@ -1,5 +1,5 @@
 import { columnistHref } from "@/lib/slug";
-import { getColumnists } from "@/lib/mock-articles";
+import { getColumnists } from "@/lib/cms";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";

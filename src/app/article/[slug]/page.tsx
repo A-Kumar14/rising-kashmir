@@ -2,7 +2,7 @@ import { AdSlot } from "@/components/ad-slot";
 import { ArticleCard } from "@/components/article-card";
 import type { Article } from "@/lib/article";
 import { formatPublished, getAuthorName } from "@/lib/byline";
-import { articles, getArticleBySlug } from "@/lib/mock-articles";
+import { articles, getArticleBySlug } from "@/lib/cms";
 import { sanitizeArticleHtml } from "@/lib/sanitize";
 import { formatSectionLabel } from "@/lib/sections-label";
 import { normalizeSlug, sectionHref } from "@/lib/slug";
@@ -13,6 +13,8 @@ import { notFound } from "next/navigation";
 
 type Props = { params: { slug: string } };
 
+export const revalidate = 60;
+
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
@@ -20,13 +22,16 @@ export function generateStaticParams() {
 export function generateMetadata(props: Props): Metadata {
   const article = getArticleBySlug(normalizeSlug(props.params.slug));
   if (!article) return { title: "Not found" };
+  const path = `/article/${article.slug}`;
   return {
     title: article.title,
     description: article.dek ?? article.title,
+    alternates: { canonical: path },
     openGraph: {
       title: article.title,
       description: article.dek ?? undefined,
       type: "article",
+      url: path,
       publishedTime: article.published_at,
       modifiedTime: article.updated_at,
     },

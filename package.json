@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "dev:rk": "next dev -p 3333",
@@ -11,7 +15,12 @@
     "start:rk": "next start -p 3333",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "eslint --fix --max-warnings=0",
+    "*.{ts,tsx,js,jsx,json,md,css}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

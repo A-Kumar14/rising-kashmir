@@ -4,7 +4,7 @@ import type { Article } from "@/lib/article";
 import {
   getColumnists,
   getSectionPage,
-} from "@/lib/mock-articles";
+} from "@/lib/cms";
 import { formatSectionLabel } from "@/lib/sections-label";
 import { isKnownSectionSlug } from "@/lib/sections";
 import { normalizeSlug } from "@/lib/slug";
@@ -18,6 +18,8 @@ type Props = {
   searchParams: { page?: string };
 };
 
+export const revalidate = 60;
+
 export function generateMetadata(props: Props): Metadata {
   const { section: raw } = props.params;
   const section = normalizeSlug(raw);
@@ -27,6 +29,7 @@ export function generateMetadata(props: Props): Metadata {
   return {
     title,
     description: `Latest ${title} coverage from Rising Kashmir.`,
+    alternates: { canonical: `/section/${section}` },
   };
 }
 

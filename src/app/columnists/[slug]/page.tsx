@@ -1,5 +1,5 @@
 import { ArticleCard } from "@/components/article-card";
-import { getColumnists } from "@/lib/mock-articles";
+import { getColumnists } from "@/lib/cms";
 import { columnistHref, normalizeSlug } from "@/lib/slug";
 import type { Metadata } from "next";
 import Image from "next/image";

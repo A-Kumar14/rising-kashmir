@@ -9,7 +9,7 @@ import {
   getHomeSecondary,
   getLeadStory,
   getOpinionFeatured,
-} from "@/lib/mock-articles";
+} from "@/lib/cms";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

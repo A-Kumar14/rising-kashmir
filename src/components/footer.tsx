@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PRIMARY_SECTIONS } from "@/lib/sections";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 const SECTION_LABEL: Record<string, string> = {
   kashmir: "Kashmir",
@@ -75,33 +76,24 @@ export function SiteFooter() {
             Morning headlines for Srinagar and J&amp;K. We will only use this
             address for the digest.
           </p>
-          <form
-            className="flex flex-col gap-2 sm:flex-row"
-            action="#"
-            method="post"
-          >
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email
-            </label>
-            <input
-              id="newsletter-email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="you@example.com"
-              className="min-w-0 flex-1 rounded border border-theme bg-[var(--bg-primary)] px-3 py-2 font-sans text-body text-[var(--text-primary)]"
-            />
-            <button
-              type="submit"
-              className="rounded border border-theme bg-[var(--bg-tertiary)] px-4 py-2 font-sans text-nav font-medium text-[var(--text-primary)]"
-            >
-              Subscribe
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </div>
       <div className="border-t border-theme py-4 text-center font-sans text-byline text-[var(--text-tertiary)]">
+        <nav className="mb-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <Link href="/privacy" className="text-[var(--link)] hover:underline">
+            Privacy
+          </Link>
+          <Link href="/terms" className="text-[var(--link)] hover:underline">
+            Terms
+          </Link>
+          <Link href="/cookies" className="text-[var(--link)] hover:underline">
+            Cookies
+          </Link>
+          <a href="/feed.xml" className="text-[var(--link)] hover:underline">
+            RSS
+          </a>
+        </nav>
         © {new Date().getFullYear()} Rising Kashmir. All rights reserved.
       </div>
     </footer>
