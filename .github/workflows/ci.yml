@@ -11,17 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9.15.0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm build
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://risingkashmir.com
+          # Auth.js requires a secret at build time when auth routes are compiled.
+          AUTH_SECRET: ci-build-placeholder-secret-min-32-chars-ok
+          AUTH_GOOGLE_ID: 000000000000-ci-placeholder.apps.googleusercontent.com
+          AUTH_GOOGLE_SECRET: GOCSPX-ci-placeholder-not-for-production

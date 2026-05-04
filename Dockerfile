@@ -1,5 +1,5 @@
 # Sample production image (Node 20 LTS). Build: docker build -t rk-web .
-# Run: docker run --rm -p 3000:3000 -e PORT=3000 -e RK_AUTH_SECRET=... rk-web
+# Run: pass AUTH_SECRET (32+ chars), AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET at runtime.
 FROM node:20-alpine AS base
 
 FROM base AS deps
@@ -14,6 +14,10 @@ COPY . .
 # Next standalone expects `public/` to exist (may be empty).
 RUN mkdir -p public
 ENV NEXT_TELEMETRY_DISABLED=1
+# NextAuth is evaluated at build; replace at `docker run` with real values.
+ENV AUTH_SECRET="docker-build-placeholder-secret-32chars!!"
+ENV AUTH_GOOGLE_ID="000000000000-docker-build.apps.googleusercontent.com"
+ENV AUTH_GOOGLE_SECRET="GOCSPX-docker-build-placeholder-not-real"
 RUN npm run build
 
 FROM base AS runner

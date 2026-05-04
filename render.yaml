@@ -1,5 +1,5 @@
 # Blueprint for https://render.com — connect repo, apply blueprint, then set secrets in the dashboard:
-# RK_AUTH_SECRET, RK_DEMO_USER_EMAIL, RK_DEMO_PASSWORD_HASH, RK_DEMO_PASSWORD_SALT (optional demo auth)
+# AUTH_SECRET (or RK_AUTH_SECRET), AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET; optional REVALIDATE_SECRET
 # REVALIDATE_SECRET (optional, for POST /api/revalidate)
 services:
   - type: web

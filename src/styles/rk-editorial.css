@@ -681,6 +681,10 @@ a.rk-ad:hover {
   margin: 0;
   line-height: 1.5;
 }
+.rk-login__google-dek {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
 .rk-login__form {
   display: flex;
   flex-direction: column;

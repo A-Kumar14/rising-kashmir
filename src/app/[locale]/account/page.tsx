@@ -1,4 +1,4 @@
-import { logoutAction } from "@/actions/auth";
+import { signOutAction } from "@/actions/auth";
 import { getSession } from "@/lib/auth/get-session";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionary";
@@ -39,9 +39,15 @@ export default async function AccountPage(props: Props) {
           <span className="rk-account__label">{dict.accountSignedInAs}</span>{" "}
           <span className="rk-account__email">{session.email}</span>
         </p>
+        {session.name ? (
+          <p className="rk-account__line">
+            <span className="rk-account__label">{dict.accountDisplayName}</span>{" "}
+            <span>{session.name}</span>
+          </p>
+        ) : null}
         <p className="rk-account__note">{dict.accountSessionNote}</p>
 
-        <form className="rk-account__logout" action={logoutAction}>
+        <form className="rk-account__logout" action={signOutAction}>
           <input type="hidden" name="locale" value={locale} />
           <input
             type="hidden"

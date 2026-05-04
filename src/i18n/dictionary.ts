@@ -106,11 +106,9 @@ export type UiDictionary = {
   loginPageTitle: string;
   loginPageDescription: string;
   loginKicker: string;
-  loginEmailLabel: string;
-  loginPasswordLabel: string;
-  loginSubmit: string;
-  loginErrorInvalid: string;
-  loginErrorRateLimited: string;
+  loginGoogleButton: string;
+  loginGoogleHint: string;
+  loginErrorOAuth: string;
   loginErrorNotConfigured: string;
   authNotConfiguredTitle: string;
   authNotConfiguredBody: string;
@@ -119,6 +117,7 @@ export type UiDictionary = {
   loginFinePrint: string;
   accountPageTitle: string;
   accountSignedInAs: string;
+  accountDisplayName: string;
   accountSessionNote: string;
   navAccount: string;
   navLogout: string;
@@ -251,32 +250,32 @@ const en: UiDictionary = {
   rkArticleInThisStory: "In this story",
   loginPageTitle: "Sign in",
   loginPageDescription:
-    "Subscriber access for Rising Kashmir (demo environment).",
+    "Use your Google account to access reader features on Rising Kashmir.",
   loginKicker: "Reader account",
-  loginEmailLabel: "Email",
-  loginPasswordLabel: "Password",
-  loginSubmit: "Sign in",
-  loginErrorInvalid: "Invalid email or password.",
-  loginErrorRateLimited:
-    "Too many attempts. Please wait fifteen minutes and try again.",
+  loginGoogleButton: "Continue with Google",
+  loginGoogleHint:
+    "You will leave this site briefly to sign in with Google, then return here.",
+  loginErrorOAuth:
+    "Sign-in did not complete. Try again, or use a different Google account.",
   loginErrorNotConfigured:
     "Sign-in is not configured on this deployment. Set environment variables (see .env.example).",
   authNotConfiguredTitle: "Authentication not enabled",
   authNotConfiguredBody:
-    "The editor has not set RK_AUTH_SECRET and demo user variables. Copy .env.example to .env.local, generate a password hash with scripts/hash-password.mjs, then restart the dev server.",
-  loginSecurityHeading: "How this demo protects you",
+    "Set AUTH_SECRET (or RK_AUTH_SECRET, 32+ characters), AUTH_GOOGLE_ID, and AUTH_GOOGLE_SECRET in the environment, then redeploy. Create OAuth credentials in Google Cloud Console (Web application) and add this site’s callback URL.",
+  loginSecurityHeading: "How sign-in works",
   loginSecurityPoints: [
-    "Passwords are checked with scrypt and never stored in plain text.",
-    "Sessions use a signed JWT in an HttpOnly cookie (JavaScript cannot read it).",
-    "Cookies use SameSite=Lax and Secure in production to reduce CSRF and interception risk.",
-    "Login attempts are rate-limited per IP and email to slow brute-force attacks.",
+    "Only Google accounts are accepted; we never see your Google password.",
+    "Auth.js issues the session using HttpOnly cookies managed by the framework.",
     "After sign-in, redirects only allow paths on this site with a valid /en or /ur prefix.",
+    "Use Sign out on shared or public devices when you are finished.",
   ],
-  loginFinePrint: "This is a preview account system. Use a unique password and rotate keys before any production launch.",
+  loginFinePrint:
+    "By continuing you agree to our terms and privacy policy for this site.",
   accountPageTitle: "Your account",
   accountSignedInAs: "Signed in as",
+  accountDisplayName: "Name",
   accountSessionNote:
-    "You are using a demo session. Sign out on shared devices when finished reading.",
+    "You are signed in with Google. Sign out on shared devices when finished reading.",
   navAccount: "Account",
   navLogout: "Sign out",
   moreMenu: [
@@ -417,33 +416,32 @@ const ur: UiDictionary = {
   rkArticleInThisStory: "اس کہانی میں",
   loginPageTitle: "سائن ان",
   loginPageDescription:
-    "رائزنگ کشمیر کے لیے قارئین کا اکاؤنٹ (ڈیمو)۔",
+    "رائزنگ کشمیر پر قارئین کی سہولت کے لیے Google اکاؤنٹ استعمال کریں۔",
   loginKicker: "قارئین کا اکاؤنٹ",
-  loginEmailLabel: "ای میل",
-  loginPasswordLabel: "پاس ورڈ",
-  loginSubmit: "داخل ہوں",
-  loginErrorInvalid: "ای میل یا پاس ورڈ درست نہیں۔",
-  loginErrorRateLimited:
-    "بہت زیادہ کوششیں۔ پندرہ منٹ انتظار کریں اور دوبارہ کوشش کریں۔",
+  loginGoogleButton: "Google سے جاری رکھیں",
+  loginGoogleHint:
+    "آپ تھوڑی دیر Google پر جائیں گے، پھر واپس یہاں آ جائیں گے۔",
+  loginErrorOAuth:
+    "سائن ان مکمل نہیں ہوا۔ دوبارہ کوشش کریں یا دوسرا Google اکاؤنٹ استعمال کریں۔",
   loginErrorNotConfigured:
     "اس سرور پر سائن ان فعال نہیں۔ ماحولیاتی متغیر دیکھیں (.env.example)۔",
   authNotConfiguredTitle: "تصدیق فعال نہیں",
   authNotConfiguredBody:
-    "RK_AUTH_SECRET اور ڈیمو صارف کی قدریں سیٹ نہیں۔ .env.example کو .env.local پر نقل کریں، scripts/hash-password.mjs سے ہیش بنائیں، پھر سرور دوبارہ چلائیں۔",
-  loginSecurityHeading: "سیکیورٹی (ڈیمو)",
+    "AUTH_SECRET (یا RK_AUTH_SECRET، ۳۲+ حروف)، AUTH_GOOGLE_ID، اور AUTH_GOOGLE_SECRET ماحول میں سیٹ کریں، پھر دوبارہ ڈپلائے کریں۔ Google Cloud Console میں OAuth (ویب ایپ) بنائیں اور callback URL شامل کریں۔",
+  loginSecurityHeading: "سائن ان کیسے ہوتا ہے",
   loginSecurityPoints: [
-    "پاس ورڈ scrypt سے چیک ہوتے ہیں؛ سادہ متن محفوظ نہیں۔",
-    "سیشن HttpOnly کوکی میں دستخط شدہ JWT ہے۔",
-    "کوکیز SameSite=Lax اور پروڈکشن میں Secure ہیں۔",
-    "لاگ ان کی کوششیں IP اور ای میل کے حساب سے محدود ہیں۔",
-    "لاگ ان کے بعد صرف اس سائٹ کے اندرونی راستے اجازت یافتہ ہیں۔",
+    "صرف Google اکاؤنٹ؛ آپ کا Google پاس ورڈ ہمیں نہیں ملتا۔",
+    "سیشن Auth.js کے HttpOnly کوکیز کے ذریعے چلتا ہے۔",
+    "سائن ان کے بعد صرف اس سائٹ کے /en یا /ur والے اندرونی راستے اجازت یافتہ ہیں۔",
+    "مشترکہ آلات پر پڑھنے کے بعد سائن آؤٹ کریں۔",
   ],
   loginFinePrint:
-    "یہ پیش نظارہ ہے۔ پروڈکشن سے پہلے منفرد پاس ورڈ اور نئے راز استعمال کریں۔",
+    "جاری رکھنے سے آپ اس سائٹ کی شرائط و رازداری سے متفق ہیں۔",
   accountPageTitle: "آپ کا اکاؤنٹ",
   accountSignedInAs: "سائن ان بطور",
+  accountDisplayName: "نام",
   accountSessionNote:
-    "یہ ڈیمو سیشن ہے۔ مشترکہ آلہ استعمال کرنے پر بعد میں سائن آؤٹ کریں۔",
+    "آپ Google سے سائن ان ہیں۔ مشترکہ آلات پر بعد میں سائن آؤٹ کریں۔",
   navAccount: "اکاؤنٹ",
   navLogout: "سائن آؤٹ",
   moreMenu: [

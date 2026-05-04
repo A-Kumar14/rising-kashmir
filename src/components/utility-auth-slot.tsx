@@ -1,4 +1,4 @@
-import { logoutAction } from "@/actions/auth";
+import { signOutAction } from "@/actions/auth";
 import { getSession } from "@/lib/auth/get-session";
 import type { Locale } from "@/i18n/config";
 import type { UiDictionary } from "@/i18n/dictionary";
@@ -27,7 +27,7 @@ export async function UtilityAuthSlot({
         <span className="rk-util__sep" aria-hidden>
           │
         </span>
-        <form className="rk-util__logout" action={logoutAction}>
+        <form className="rk-util__logout" action={signOutAction}>
           <input type="hidden" name="locale" value={locale} />
           <input type="hidden" name="next" value={withLocale(locale, "/")} />
           <button type="submit" className="rk-util__link">

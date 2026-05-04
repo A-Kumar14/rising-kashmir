@@ -1,29 +1,16 @@
-import {
-  AUTH_SECRET_VAR,
-  DEMO_EMAIL_VAR,
-  DEMO_HASH_VAR,
-  DEMO_SALT_VAR,
-} from "./constants";
+const AUTH_SECRET = "AUTH_SECRET";
+const LEGACY_SECRET = "RK_AUTH_SECRET";
 
 /**
- * Demo auth is enabled only when all secrets are present.
- * Production should replace this with OAuth / IdP and a real user store.
+ * Google OAuth is enabled when Auth.js secret and Google web client credentials exist.
+ * `AUTH_SECRET` is preferred; `RK_AUTH_SECRET` is accepted for existing deployments.
  */
-export function isDemoAuthConfigured(): boolean {
-  const secret = process.env[AUTH_SECRET_VAR]?.trim();
-  const email = process.env[DEMO_EMAIL_VAR]?.trim();
-  const hash = process.env[DEMO_HASH_VAR]?.trim();
-  const salt = process.env[DEMO_SALT_VAR]?.trim();
+export function isGoogleAuthConfigured(): boolean {
+  const secret =
+    process.env[AUTH_SECRET]?.trim() ?? process.env[LEGACY_SECRET]?.trim();
+  const id = process.env.AUTH_GOOGLE_ID?.trim();
+  const clientSecret = process.env.AUTH_GOOGLE_SECRET?.trim();
   if (!secret || secret.length < 32) return false;
-  if (!email || !hash || !salt) return false;
-  if (!/^[0-9a-f]+$/i.test(hash) || !/^[0-9a-f]+$/i.test(salt)) return false;
+  if (!id || !clientSecret) return false;
   return true;
-}
-
-export function getAuthSecretBytes(): Uint8Array {
-  const raw = process.env[AUTH_SECRET_VAR]?.trim();
-  if (!raw || raw.length < 32) {
-    throw new Error(`${AUTH_SECRET_VAR} must be set to a random string of at least 32 characters`);
-  }
-  return new TextEncoder().encode(raw);
 }

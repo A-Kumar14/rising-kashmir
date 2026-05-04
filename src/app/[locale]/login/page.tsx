@@ -1,5 +1,5 @@
 import { LoginForm } from "@/components/auth/login-form";
-import { isDemoAuthConfigured } from "@/lib/auth/config";
+import { isGoogleAuthConfigured } from "@/lib/auth/config";
 import { getSession } from "@/lib/auth/get-session";
 import { safeLocalePath } from "@/lib/auth/safe-redirect";
 import { isLocale, type Locale } from "@/i18n/config";
@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 type Props = {
   params: { locale: string };
-  searchParams?: { next?: string };
+  searchParams?: { next?: string; error?: string };
 };
 
 export function generateMetadata(props: Props): Metadata {
@@ -42,7 +42,8 @@ export default async function LoginPage(props: Props) {
       ? safeLocalePath(nextParam, locale)
       : defaultNext;
 
-  const configured = isDemoAuthConfigured();
+  const configured = isGoogleAuthConfigured();
+  const oauthError = Boolean(props.searchParams?.error);
 
   return (
     <div className="rk-login">
@@ -52,6 +53,12 @@ export default async function LoginPage(props: Props) {
           <h1 className="rk-login__title">{dict.loginPageTitle}</h1>
           <p className="rk-login__dek">{dict.loginPageDescription}</p>
         </header>
+
+        {oauthError ? (
+          <p className="rk-login__err" role="alert">
+            {dict.loginErrorOAuth}
+          </p>
+        ) : null}
 
         {configured ? (
           <LoginForm locale={locale} dict={dict} defaultNext={nextPath} />
