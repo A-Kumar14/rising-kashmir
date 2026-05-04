@@ -581,3 +581,319 @@ button:hover .rk-img img, .rk-tile__media:hover img { transform: scale(1.02); }
   --brand-red: var(--accent);
   --link: var(--accent-2);
 }
+
+/* Sample house ads */
+.rk-ad-slot {
+  margin: calc(28px * var(--density)) auto;
+  max-width: var(--container);
+  padding: 0 var(--gutter);
+}
+.rk-ad {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--rule-strong);
+  background: linear-gradient(
+    135deg,
+    var(--bg-2) 0%,
+    var(--bg) 55%,
+    var(--bg-2) 100%
+  );
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+a.rk-ad:hover {
+  border-color: var(--accent);
+  box-shadow: 0 12px 28px -18px oklch(0.25 0.04 60 / 0.35);
+}
+.rk-ad--leaderboard {
+  min-height: 90px;
+  max-width: 728px;
+  margin: 0 auto;
+  padding: 14px 20px;
+}
+.rk-ad--native {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 16px 20px;
+}
+.rk-ad__eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.rk-ad__head {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.rk-ad__dek {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.rk-ad__cta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--accent-2);
+}
+
+/* Login / account */
+.rk-login,
+.rk-account {
+  padding: 40px var(--gutter) 64px;
+}
+.rk-login__inner,
+.rk-account__inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.rk-login__head {
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+}
+.rk-login__kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin: 0 0 6px;
+}
+.rk-login__title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.rk-login__dek {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0;
+  line-height: 1.5;
+}
+.rk-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.rk-login__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.rk-login__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.rk-login__input {
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+}
+.rk-login__input:focus {
+  border-color: var(--ink);
+}
+.rk-login__submit {
+  margin-top: 4px;
+  padding: 12px 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+}
+.rk-login__submit:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+.rk-login__submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.rk-login__err {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: oklch(0.55 0.2 25);
+  margin: 0;
+}
+.rk-login__hint {
+  font-family: var(--mono);
+  font-size: 12px;
+  margin: 0;
+}
+.rk-login__hint a {
+  color: var(--accent-2);
+}
+.rk-login__panel {
+  border: 1px solid var(--rule-strong);
+  padding: 16px 18px;
+  margin-bottom: 28px;
+  background: var(--bg-2);
+}
+.rk-login__panel--warn {
+  border-color: oklch(0.55 0.12 55);
+}
+.rk-login__warn-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.rk-login__warn-body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 0;
+}
+.rk-login__security {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.rk-login__sec-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 12px;
+}
+.rk-login__sec-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+[dir="rtl"] .rk-login__sec-list {
+  padding-left: 0;
+  padding-right: 1.1rem;
+}
+.rk-login__sec-list li {
+  margin-bottom: 8px;
+}
+.rk-login__fine {
+  margin-top: 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+.rk-login__fine a {
+  color: var(--accent-2);
+}
+
+.rk-account__title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 600;
+  margin: 0 0 20px;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+}
+.rk-account__line {
+  font-family: var(--sans);
+  font-size: 15px;
+  margin: 0 0 12px;
+  color: var(--ink-2);
+}
+.rk-account__label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.rk-account__email {
+  font-weight: 600;
+  color: var(--ink);
+}
+.rk-account__note {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin: 0 0 24px;
+}
+.rk-account__logout {
+  margin: 0 0 20px;
+}
+.rk-account__logout-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+.rk-account__logout-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.rk-account__back {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.rk-account__back a {
+  color: var(--accent-2);
+}
+
+.rk-util__auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.rk-util__logout {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.rk-util__logout button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+.rk-util__logout button:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}

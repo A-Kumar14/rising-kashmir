@@ -1,0 +1,15 @@
+# Blueprint for https://render.com — connect repo, apply blueprint, then set secrets in the dashboard:
+# RK_AUTH_SECRET, RK_DEMO_USER_EMAIL, RK_DEMO_PASSWORD_HASH, RK_DEMO_PASSWORD_SALT (optional demo auth)
+# REVALIDATE_SECRET (optional, for POST /api/revalidate)
+services:
+  - type: web
+    name: rising-kashmir
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /en
+    envVars:
+      - key: NODE_VERSION
+        value: "20.18.0"

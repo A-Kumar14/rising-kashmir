@@ -4,8 +4,9 @@ import { withLocale } from "@/i18n/path";
 import { rkDateline } from "@/lib/rk-time";
 import { RkLocalePills } from "./rk-locale-pills";
 import { RkThemeCycle } from "./rk-theme-client";
+import { UtilityAuthSlot } from "./utility-auth-slot";
 
-export function UtilityBar({
+export async function UtilityBar({
   locale,
   dict,
 }: {
@@ -39,6 +40,9 @@ export function UtilityBar({
           >
             {dict.utilityEpaper}
           </a>
+          <span className="rk-util__sep" aria-hidden>
+            │
+          </span>
           <RkThemeCycle
             labels={{
               light: `☼ ${dict.rkThemeLight}`,
@@ -46,6 +50,13 @@ export function UtilityBar({
               sepia: `✦ ${dict.rkThemeSepia}`,
             }}
           />
+          <span className="rk-util__sep" aria-hidden>
+            │
+          </span>
+          <UtilityAuthSlot locale={locale} dict={dict} />
+          <span className="rk-util__sep" aria-hidden>
+            │
+          </span>
           <a href="#newsletter-band" className="rk-util__sub">
             {dict.rkSubscribe}
           </a>

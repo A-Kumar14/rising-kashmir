@@ -29,9 +29,12 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
   },
   { key: "X-DNS-Prefetch-Control", value: "on" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
 ];
 
 const nextConfig = {
+  // Enables `Dockerfile` sample deploy (smaller runtime image). Safe on Vercel too.
+  output: "standalone",
   images: {
     // `domains` still enforced by some Next 14 code paths; keep in sync with CSP / remotePatterns.
     domains: ["risingkashmir.com"],

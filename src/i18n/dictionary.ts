@@ -103,6 +103,25 @@ export type UiDictionary = {
   rkHeroMagazine: string;
   rkHeroWire: string;
   rkArticleInThisStory: string;
+  loginPageTitle: string;
+  loginPageDescription: string;
+  loginKicker: string;
+  loginEmailLabel: string;
+  loginPasswordLabel: string;
+  loginSubmit: string;
+  loginErrorInvalid: string;
+  loginErrorRateLimited: string;
+  loginErrorNotConfigured: string;
+  authNotConfiguredTitle: string;
+  authNotConfiguredBody: string;
+  loginSecurityHeading: string;
+  loginSecurityPoints: string[];
+  loginFinePrint: string;
+  accountPageTitle: string;
+  accountSignedInAs: string;
+  accountSessionNote: string;
+  navAccount: string;
+  navLogout: string;
 };
 
 const en: UiDictionary = {
@@ -157,7 +176,7 @@ const en: UiDictionary = {
   newsletterSuccess: "Thanks — check your inbox to confirm.",
   newsletterPending: "…",
   adLabel: "Advertisement",
-  signInTitle: "Account access is not available in this preview",
+  signInTitle: "Sign in",
   sectionLabels: {
     kashmir: "Kashmir",
     jammu: "Jammu",
@@ -230,6 +249,36 @@ const en: UiDictionary = {
   rkHeroMagazine: "Magazine",
   rkHeroWire: "Wire",
   rkArticleInThisStory: "In this story",
+  loginPageTitle: "Sign in",
+  loginPageDescription:
+    "Subscriber access for Rising Kashmir (demo environment).",
+  loginKicker: "Reader account",
+  loginEmailLabel: "Email",
+  loginPasswordLabel: "Password",
+  loginSubmit: "Sign in",
+  loginErrorInvalid: "Invalid email or password.",
+  loginErrorRateLimited:
+    "Too many attempts. Please wait fifteen minutes and try again.",
+  loginErrorNotConfigured:
+    "Sign-in is not configured on this deployment. Set environment variables (see .env.example).",
+  authNotConfiguredTitle: "Authentication not enabled",
+  authNotConfiguredBody:
+    "The editor has not set RK_AUTH_SECRET and demo user variables. Copy .env.example to .env.local, generate a password hash with scripts/hash-password.mjs, then restart the dev server.",
+  loginSecurityHeading: "How this demo protects you",
+  loginSecurityPoints: [
+    "Passwords are checked with scrypt and never stored in plain text.",
+    "Sessions use a signed JWT in an HttpOnly cookie (JavaScript cannot read it).",
+    "Cookies use SameSite=Lax and Secure in production to reduce CSRF and interception risk.",
+    "Login attempts are rate-limited per IP and email to slow brute-force attacks.",
+    "After sign-in, redirects only allow paths on this site with a valid /en or /ur prefix.",
+  ],
+  loginFinePrint: "This is a preview account system. Use a unique password and rotate keys before any production launch.",
+  accountPageTitle: "Your account",
+  accountSignedInAs: "Signed in as",
+  accountSessionNote:
+    "You are using a demo session. Sign out on shared devices when finished reading.",
+  navAccount: "Account",
+  navLogout: "Sign out",
   moreMenu: [
     { label: "Business", hrefSuffix: "/section/business" },
     { label: "Sci / Tech", hrefSuffix: "/section/sci-tech" },
@@ -293,7 +342,7 @@ const ur: UiDictionary = {
   newsletterSuccess: "شکریہ — تصدیق کے لیے اپنا ان باکس چیک کریں۔",
   newsletterPending: "…",
   adLabel: "اشتہار",
-  signInTitle: "اس پیش نظارے میں اکاؤنٹ دستیاب نہیں",
+  signInTitle: "سائن ان",
   sectionLabels: {
     kashmir: "کشمیر",
     jammu: "جموں",
@@ -366,6 +415,37 @@ const ur: UiDictionary = {
   rkHeroMagazine: "میگزین",
   rkHeroWire: "وائر",
   rkArticleInThisStory: "اس کہانی میں",
+  loginPageTitle: "سائن ان",
+  loginPageDescription:
+    "رائزنگ کشمیر کے لیے قارئین کا اکاؤنٹ (ڈیمو)۔",
+  loginKicker: "قارئین کا اکاؤنٹ",
+  loginEmailLabel: "ای میل",
+  loginPasswordLabel: "پاس ورڈ",
+  loginSubmit: "داخل ہوں",
+  loginErrorInvalid: "ای میل یا پاس ورڈ درست نہیں۔",
+  loginErrorRateLimited:
+    "بہت زیادہ کوششیں۔ پندرہ منٹ انتظار کریں اور دوبارہ کوشش کریں۔",
+  loginErrorNotConfigured:
+    "اس سرور پر سائن ان فعال نہیں۔ ماحولیاتی متغیر دیکھیں (.env.example)۔",
+  authNotConfiguredTitle: "تصدیق فعال نہیں",
+  authNotConfiguredBody:
+    "RK_AUTH_SECRET اور ڈیمو صارف کی قدریں سیٹ نہیں۔ .env.example کو .env.local پر نقل کریں، scripts/hash-password.mjs سے ہیش بنائیں، پھر سرور دوبارہ چلائیں۔",
+  loginSecurityHeading: "سیکیورٹی (ڈیمو)",
+  loginSecurityPoints: [
+    "پاس ورڈ scrypt سے چیک ہوتے ہیں؛ سادہ متن محفوظ نہیں۔",
+    "سیشن HttpOnly کوکی میں دستخط شدہ JWT ہے۔",
+    "کوکیز SameSite=Lax اور پروڈکشن میں Secure ہیں۔",
+    "لاگ ان کی کوششیں IP اور ای میل کے حساب سے محدود ہیں۔",
+    "لاگ ان کے بعد صرف اس سائٹ کے اندرونی راستے اجازت یافتہ ہیں۔",
+  ],
+  loginFinePrint:
+    "یہ پیش نظارہ ہے۔ پروڈکشن سے پہلے منفرد پاس ورڈ اور نئے راز استعمال کریں۔",
+  accountPageTitle: "آپ کا اکاؤنٹ",
+  accountSignedInAs: "سائن ان بطور",
+  accountSessionNote:
+    "یہ ڈیمو سیشن ہے۔ مشترکہ آلہ استعمال کرنے پر بعد میں سائن آؤٹ کریں۔",
+  navAccount: "اکاؤنٹ",
+  navLogout: "سائن آؤٹ",
   moreMenu: [
     { label: "کاروبار", hrefSuffix: "/section/business" },
     { label: "سائنس و ٹیکنالوجی", hrefSuffix: "/section/sci-tech" },
