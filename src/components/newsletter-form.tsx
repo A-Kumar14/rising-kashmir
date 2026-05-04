@@ -8,7 +8,17 @@ import {
 
 const initial: NewsletterState = { status: "idle" };
 
-function SubscribeButton() {
+type Labels = {
+  emailLabel: string;
+  placeholder: string;
+  subscribe: string;
+  success: string;
+  pending: string;
+};
+
+type SubscribeButtonProps = { pendingLabel: string; subscribe: string };
+
+function SubscribeButton({ pendingLabel, subscribe }: SubscribeButtonProps) {
   const { pending } = useFormStatus();
   return (
     <button
@@ -16,12 +26,12 @@ function SubscribeButton() {
       disabled={pending}
       className="rounded border border-theme bg-[var(--bg-tertiary)] px-4 py-2 font-sans text-nav font-medium text-[var(--text-primary)] disabled:opacity-60"
     >
-      {pending ? "…" : "Subscribe"}
+      {pending ? pendingLabel : subscribe}
     </button>
   );
 }
 
-export function NewsletterForm() {
+export function NewsletterForm({ labels }: { labels: Labels }) {
   const [state, formAction] = useFormState(subscribeNewsletter, initial);
 
   if (state.status === "ok") {
@@ -30,7 +40,7 @@ export function NewsletterForm() {
         role="status"
         className="font-sans text-byline text-[var(--text-secondary)]"
       >
-        Thanks — check your inbox to confirm.
+        {labels.success}
       </p>
     );
   }
@@ -46,7 +56,7 @@ export function NewsletterForm() {
         className="hidden"
       />
       <label htmlFor="newsletter-email" className="sr-only">
-        Email
+        {labels.emailLabel}
       </label>
       <input
         id="newsletter-email"
@@ -54,10 +64,13 @@ export function NewsletterForm() {
         type="email"
         required
         autoComplete="email"
-        placeholder="you@example.com"
+        placeholder={labels.placeholder}
         className="min-w-0 flex-1 rounded border border-theme bg-[var(--bg-primary)] px-3 py-2 font-sans text-body text-[var(--text-primary)]"
       />
-      <SubscribeButton />
+      <SubscribeButton
+        pendingLabel={labels.pending}
+        subscribe={labels.subscribe}
+      />
       {state.status === "error" ? (
         <p
           role="alert"

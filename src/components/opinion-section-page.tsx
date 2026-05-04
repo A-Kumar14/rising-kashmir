@@ -1,8 +1,10 @@
 import type { Article } from "@/lib/article";
+import type { Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionary";
 import { columnistHref } from "@/lib/slug";
 import Image from "next/image";
 import Link from "next/link";
-import { ArticleCard } from "./article-card";
+import { CardThumb } from "./rk-cards";
 
 export type ColumnistGroup = {
   slug: string;
@@ -12,16 +14,25 @@ export type ColumnistGroup = {
   articles: Article[];
 };
 
-export function OpinionSectionPage({ groups }: { groups: ColumnistGroup[] }) {
+type Props = {
+  groups: ColumnistGroup[];
+  locale: Locale;
+  dict: UiDictionary;
+};
+
+export function OpinionSectionPage({ groups, locale, dict }: Props) {
+  const titleFont = locale === "ur" ? "font-urdu" : "font-serif";
+
   return (
     <div className="mx-auto max-w-container px-4 py-10 md:px-6">
       <header className="mb-10 border-b border-theme pb-6">
-        <h1 className="font-serif text-section-title font-medium text-[var(--text-primary)]">
-          Opinion
+        <h1
+          className={`text-section-title font-medium text-[var(--text-primary)] ${titleFont}`}
+        >
+          {dict.sectionLabels.opinion}
         </h1>
         <p className="mt-2 max-w-2xl font-sans text-body text-[var(--text-secondary)]">
-          Columns from Srinagar, Jammu, and contributors on policy, society,
-          and the region.
+          {dict.opinionSectionIntro}
         </p>
       </header>
 
@@ -45,9 +56,12 @@ export function OpinionSectionPage({ groups }: { groups: ColumnistGroup[] }) {
                 )}
               </div>
               <div>
-                <h2 id={`col-${g.slug}`} className="font-serif text-card-lg font-medium">
+                <h2
+                  id={`col-${g.slug}`}
+                  className={`text-card-lg font-medium ${titleFont}`}
+                >
                   <Link
-                    href={columnistHref(g.slug)}
+                    href={columnistHref(locale, g.slug)}
                     className="text-[var(--text-primary)] hover:underline"
                   >
                     {g.name}
@@ -61,9 +75,14 @@ export function OpinionSectionPage({ groups }: { groups: ColumnistGroup[] }) {
               </div>
             </div>
             <ul className="flex flex-col gap-4">
-              {g.articles.map((a) => (
+              {g.articles.map((a, i) => (
                 <li key={a.id}>
-                  <ArticleCard article={a} variant="thumb" />
+                  <CardThumb
+                    article={a}
+                    locale={locale}
+                    dict={dict}
+                    idx={i}
+                  />
                 </li>
               ))}
             </ul>

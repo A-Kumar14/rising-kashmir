@@ -1,40 +1,54 @@
-import { ThemeToggle } from "./theme-root";
+import type { Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionary";
+import { withLocale } from "@/i18n/path";
+import { rkDateline } from "@/lib/rk-time";
+import { RkLocalePills } from "./rk-locale-pills";
+import { RkThemeCycle } from "./rk-theme-client";
 
-function todayStr() {
-  return new Intl.DateTimeFormat("en-IN", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "Asia/Kolkata",
-  }).format(new Date());
-}
-
-export function UtilityBar() {
+export function UtilityBar({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: UiDictionary;
+}) {
   return (
-    <div className="h-10 border-b border-theme bg-[var(--bg-secondary)]">
-      <div className="mx-auto flex h-full max-w-container items-center justify-between px-4 md:px-6">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-utility text-[var(--text-secondary)]">
-          <time dateTime={new Date().toISOString()}>{todayStr()}</time>
-          <span className="hidden sm:inline" aria-hidden>
-            ·
+    <div className="rk-util">
+      <div className="rk-util__inner">
+        <div className="rk-util__left">
+          <time
+            className="rk-util__date"
+            dateTime={new Date().toISOString()}
+            suppressHydrationWarning
+          >
+            {rkDateline(locale)}
+          </time>
+          <span className="rk-util__dot" aria-hidden>
+            ●
           </span>
-          <span className="hidden sm:inline">Srinagar · Weather unavailable</span>
+          <span className="rk-util__weather">{dict.utilityWeather}</span>
         </div>
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <a
-            href="/e-paper"
-            className="text-utility font-medium text-[var(--link)] underline-offset-2 hover:underline"
-          >
-            E-Paper
-          </a>
-          <span
-            className="text-utility text-[var(--text-tertiary)]"
-            title="Account access is not available in this preview"
-          >
-            Sign in
+        <div className="rk-util__right">
+          <RkLocalePills dict={dict} current={locale} />
+          <span className="rk-util__sep" aria-hidden>
+            │
           </span>
+          <a
+            href={withLocale(locale, "/e-paper")}
+            className="rk-util__link"
+          >
+            {dict.utilityEpaper}
+          </a>
+          <RkThemeCycle
+            labels={{
+              light: `☼ ${dict.rkThemeLight}`,
+              dark: `☾ ${dict.rkThemeDark}`,
+              sepia: `✦ ${dict.rkThemeSepia}`,
+            }}
+          />
+          <a href="#newsletter-band" className="rk-util__sub">
+            {dict.rkSubscribe}
+          </a>
         </div>
       </div>
     </div>

@@ -2,37 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f4ef;
-  --bg-tertiary: #ebe9e0;
-  --text-primary: #1a1a1a;
-  --text-secondary: #5a5a55;
-  --text-tertiary: #8a8a82;
-  --border: rgba(0, 0, 0, 0.12);
-  --brand-red: #a32d2d;
-  --link: #185fa5;
-}
-
-[data-theme="dark"] {
-  --bg-primary: #161614;
-  --bg-secondary: #1f1f1c;
-  --bg-tertiary: #282824;
-  --text-primary: #f0efe8;
-  --text-secondary: #a8a79f;
-  --text-tertiary: #6f6e68;
-  --border: rgba(255, 255, 255, 0.14);
-  --brand-red: #c44a4a;
-  --link: #6fa9e8;
-}
+@import "../styles/rk-editorial.css";
 
 html {
   color-scheme: light dark;
-}
-
-body {
-  @apply font-sans text-body font-normal text-[var(--text-primary)] antialiased;
-  background-color: var(--bg-primary);
 }
 
 a.text-link {

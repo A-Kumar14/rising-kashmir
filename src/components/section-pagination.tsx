@@ -1,12 +1,22 @@
 import Link from "next/link";
+import type { UiDictionary } from "@/i18n/dictionary";
 
 type Props = {
   basePath: string;
   currentPage: number;
   totalPages: number;
+  dict: Pick<
+    UiDictionary,
+    "paginationPrevious" | "paginationNext" | "paginationAria"
+  >;
 };
 
-export function SectionPagination({ basePath, currentPage, totalPages }: Props) {
+export function SectionPagination({
+  basePath,
+  currentPage,
+  totalPages,
+  dict,
+}: Props) {
   if (totalPages <= 1) return null;
 
   const prev = currentPage > 1 ? currentPage - 1 : null;
@@ -18,7 +28,7 @@ export function SectionPagination({ basePath, currentPage, totalPages }: Props) 
   return (
     <nav
       className="mt-10 flex items-center justify-between gap-4 border-t border-theme pt-6 font-sans text-nav font-medium"
-      aria-label="Pagination"
+      aria-label={dict.paginationAria}
     >
       <div>
         {prev ? (
@@ -27,14 +37,16 @@ export function SectionPagination({ basePath, currentPage, totalPages }: Props) 
             className="text-[var(--link)] hover:underline"
             rel="prev"
           >
-            ← Previous
+            ← {dict.paginationPrevious}
           </Link>
         ) : (
-          <span className="text-[var(--text-tertiary)]">← Previous</span>
+          <span className="text-[var(--text-tertiary)]">
+            ← {dict.paginationPrevious}
+          </span>
         )}
       </div>
-      <span className="text-[var(--text-secondary)]">
-        Page {currentPage} of {totalPages}
+      <span className="tabular-nums text-[var(--text-secondary)]">
+        {currentPage} / {totalPages}
       </span>
       <div>
         {next ? (
@@ -43,10 +55,12 @@ export function SectionPagination({ basePath, currentPage, totalPages }: Props) 
             className="text-[var(--link)] hover:underline"
             rel="next"
           >
-            Next →
+            {dict.paginationNext} →
           </Link>
         ) : (
-          <span className="text-[var(--text-tertiary)]">Next →</span>
+          <span className="text-[var(--text-tertiary)]">
+            {dict.paginationNext} →
+          </span>
         )}
       </div>
     </nav>

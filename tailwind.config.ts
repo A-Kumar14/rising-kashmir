@@ -12,6 +12,7 @@ const config: Config = {
       fontFamily: {
         serif: ["var(--font-source-serif)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        urdu: ["var(--font-urdu)", "Noto Naskh Arabic", "serif"],
       },
       fontSize: {
         "hero": ["30px", { lineHeight: "1.2" }],

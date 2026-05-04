@@ -1,12 +1,12 @@
 import type { Article } from "./article";
+import { urArticleOverlays } from "./article-i18n-ur";
+import { rkAuth, rkPost } from "./rk-cdn";
 import { normalizeSlug } from "./slug";
 
 const now = new Date();
 const daysAgo = (d: number) =>
   new Date(now.getTime() - d * 24 * 60 * 60 * 1000).toISOString();
 
-const u = (photoPath: string) =>
-  `https://images.unsplash.com/${photoPath}?auto=format&w=1200&h=800&fit=crop&q=80`;
 
 const rawArticles: Article[] = [
   {
@@ -25,7 +25,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1551836022-d5d88e21c963"),
+      url: rkPost("69f701ea92806.jpeg"),
       alt: "Crowd in downtown Srinagar",
       credit: "RK Photo",
     },
@@ -44,7 +44,7 @@ const rawArticles: Article[] = [
     tags: ["weather", "infrastructure"],
     author: { name: "Rifat Jan", slug: "rifat-jan", avatar: null, column: null },
     hero_image: {
-      url: u("photo-1469474968028-56623f02e42e"),
+      url: rkPost("69f78d7f342af.jpeg"),
       alt: "Mountain road in mist",
       credit: "File",
     },
@@ -68,7 +68,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1498050108023-a52441f4f6e9"),
+      url: rkPost("69f773b467424.jpeg"),
       alt: "Laptop and forms",
       credit: "Illustration",
     },
@@ -91,7 +91,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f78e70b8bb5.jpeg"),
+      alt: "Health surveillance briefing",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(1),
     updated_at: daysAgo(1),
     reading_time_minutes: 4,
@@ -113,7 +117,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1464822759023-fed622ff2c3b"),
+      url: rkPost("69f58fe94cd0d.jpg"),
       alt: "Snow-covered peaks",
       credit: "RK Nature Desk",
     },
@@ -137,7 +141,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1480714378408-67cf0d13b1b1"),
+      url: rkPost("69f8017ecc547.jpg"),
       alt: "City intersection",
       credit: "File",
     },
@@ -160,7 +164,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f8003b5d4ca.jpg"),
+      alt: "Trekkers in the hills near Jammu",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(3),
     updated_at: daysAgo(3),
     reading_time_minutes: 4,
@@ -182,7 +190,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1559827260-dc66d52be31d"),
+      url: rkPost("69f486404b07c.jpg"),
       alt: "Cargo vessel at sea",
       credit: "Reuters",
     },
@@ -206,7 +214,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f49508aa1e0.jpg"),
+      alt: "Students outside an examination centre",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(1),
     updated_at: daysAgo(1),
     reading_time_minutes: 4,
@@ -228,7 +240,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1519682336658-80db875f35ee"),
+      url: rkPost("69f4d2439070f.jpg"),
       alt: "Airport departure hall",
       credit: "PTI",
     },
@@ -252,7 +264,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f46ea71dd52.jpg"),
+      alt: "International summit briefing",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(0),
     updated_at: daysAgo(0),
     reading_time_minutes: 3,
@@ -273,7 +289,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f40d024f8cf.jpeg"),
+      alt: "Oil and energy sector illustration",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(2),
     updated_at: daysAgo(2),
     reading_time_minutes: 8,
@@ -291,10 +311,14 @@ const rawArticles: Article[] = [
     author: {
       name: "Farooq Abdullah",
       slug: "farooq-abdullah",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
+      avatar: rkAuth("69ce4a5b6d732.png"),
       column: "Notes from the Ridge",
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69ec266ae05ed.jpg"),
+      alt: "Opinion column illustration",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(1),
     updated_at: daysAgo(1),
     reading_time_minutes: 5,
@@ -312,10 +336,14 @@ const rawArticles: Article[] = [
     author: {
       name: "Mantasha Rashid",
       slug: "mantasha-rashid",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+      avatar: rkPost("69ea1ce38b0eb.png"),
       column: "The Quiet Ripple",
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69e4e59123da7.png"),
+      alt: "Community and governance",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(2),
     updated_at: daysAgo(2),
     reading_time_minutes: 6,
@@ -333,10 +361,14 @@ const rawArticles: Article[] = [
     author: {
       name: "Mehbooba Mufti",
       slug: "mehbooba-mufti",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
+      avatar: rkAuth("69ccd22452135.png"),
       column: "From the Valley Floor",
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f7277bc2277.jpeg"),
+      alt: "Public gathering in Jammu and Kashmir",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(3),
     updated_at: daysAgo(3),
     reading_time_minutes: 7,
@@ -357,7 +389,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1540747913346-499ad172612f"),
+      url: rkPost("69f72a93bff1e.jpg"),
       alt: "Cricket stadium floodlights",
       credit: "BCCI",
     },
@@ -381,7 +413,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f80227c552a.jpg"),
+      alt: "IPL match action",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(1),
     updated_at: daysAgo(1),
     reading_time_minutes: 4,
@@ -401,7 +437,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f804106246f.jpg"),
+      alt: "Athletics event in Kashmir",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(2),
     updated_at: daysAgo(2),
     reading_time_minutes: 3,
@@ -422,7 +462,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1596040033229-f588993876c68"),
+      url: rkPost("69dcb4fa7dca1.jpg"),
       alt: "Saffron crocus fields",
       credit: "RK Business",
     },
@@ -445,7 +485,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69dc5980a6226.jpg"),
+      alt: "Young entrepreneurs at an event",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(5),
     updated_at: daysAgo(5),
     reading_time_minutes: 5,
@@ -465,7 +509,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69deb16088f80.png"),
+      alt: "Laboratory research",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(6),
     updated_at: daysAgo(6),
     reading_time_minutes: 7,
@@ -486,7 +534,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1476514525535-07fb3b4ae5f1"),
+      url: rkPost("69cce83115883.jpeg"),
       alt: "Alpine meadow",
       credit: "RK Travel",
     },
@@ -509,7 +557,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69cd077284808.jpeg"),
+      alt: "Cultural programme in Srinagar",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(4),
     updated_at: daysAgo(4),
     reading_time_minutes: 4,
@@ -530,7 +582,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69cf1b852f365.jpeg"),
+      alt: "River and hydropower infrastructure",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(2),
     updated_at: daysAgo(2),
     reading_time_minutes: 6,
@@ -550,7 +606,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: "Leader",
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69cb0fc53cbe8.jpeg"),
+      alt: "Editorial illustration",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(5),
     updated_at: daysAgo(5),
     reading_time_minutes: 4,
@@ -565,7 +625,11 @@ const rawArticles: Article[] = [
     section: "kashmir",
     tags: ["test"],
     author: null,
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69c991da38fc4.jpeg"),
+      alt: "Kashmir news file photo",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(10),
     updated_at: daysAgo(10),
     reading_time_minutes: 1,
@@ -585,7 +649,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f62652261f5.jpg"),
+      alt: "NEET examination centre",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(0),
     updated_at: daysAgo(0),
     reading_time_minutes: 3,
@@ -605,7 +673,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f6f5b88b491.jpeg"),
+      alt: "Volleyball training",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(0),
     updated_at: daysAgo(0),
     reading_time_minutes: 3,
@@ -626,7 +698,7 @@ const rawArticles: Article[] = [
       column: null,
     },
     hero_image: {
-      url: u("photo-1523906834658-44e287ff08bc"),
+      url: rkPost("69f75b1dd082d.jpeg"),
       alt: "Houseboats on Dal edge",
       credit: "RK",
     },
@@ -650,7 +722,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69ec632419cad.jpg"),
+      alt: "Press briefing",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(6),
     updated_at: daysAgo(6),
     reading_time_minutes: 6,
@@ -670,7 +746,11 @@ const rawArticles: Article[] = [
       avatar: null,
       column: null,
     },
-    hero_image: null,
+    hero_image: {
+      url: rkPost("69f78cb6f24c9.png"),
+      alt: "Highway restoration work",
+      credit: "Rising Kashmir",
+    },
     published_at: daysAgo(1),
     updated_at: daysAgo(1),
     reading_time_minutes: 2,
@@ -679,9 +759,11 @@ const rawArticles: Article[] = [
 ];
 
 function normalizeArticle(a: Article): Article {
+  const ur = urArticleOverlays[a.id];
   return {
     ...a,
     slug: normalizeSlug(a.slug, a.title),
+    i18n: ur ? { ur } : undefined,
   };
 }
 

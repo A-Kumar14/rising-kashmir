@@ -9,7 +9,7 @@ const csp = [
   "base-uri 'self'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  "img-src 'self' data: https://images.unsplash.com https://picsum.photos",
+  "img-src 'self' data: https://risingkashmir.com https://www.risingkashmir.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "script-src 'self' 'unsafe-inline'",
@@ -33,10 +33,19 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
+    // `domains` still enforced by some Next 14 code paths; keep in sync with CSP / remotePatterns.
+    domains: ["risingkashmir.com"],
     remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
-      { protocol: "https", hostname: "picsum.photos", pathname: "/**" },
-      // TODO: add real CDN domain once provisioned (per MIGRATION.md).
+      {
+        protocol: "https",
+        hostname: "risingkashmir.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.risingkashmir.com",
+        pathname: "/**",
+      },
     ],
   },
   async headers() {
@@ -46,6 +55,16 @@ const nextConfig = {
     return [
       {
         source: "/e-paper",
+        destination: "https://epaper.risingkashmir.com",
+        permanent: false,
+      },
+      {
+        source: "/en/e-paper",
+        destination: "https://epaper.risingkashmir.com",
+        permanent: false,
+      },
+      {
+        source: "/ur/e-paper",
         destination: "https://epaper.risingkashmir.com",
         permanent: false,
       },

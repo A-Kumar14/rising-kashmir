@@ -1,6 +1,8 @@
 import type { Article } from "@/lib/article";
+import { getArticleDek, getArticleTitle } from "@/lib/article-display";
+import type { Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionary";
 import { formatPublished, getAuthorName } from "@/lib/byline";
-import { formatSectionLabel } from "@/lib/sections-label";
 import { articleHref, sectionHref } from "@/lib/slug";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
@@ -27,18 +29,37 @@ const cardVariants = cva(
 
 export type ArticleCardProps = {
   article: Article;
+  locale: Locale;
+  dict: UiDictionary;
 } & VariantProps<typeof cardVariants>;
 
-export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) {
-  const href = articleHref(article.slug);
+export function ArticleCard({
+  article,
+  locale,
+  dict,
+  variant = "compact",
+}: ArticleCardProps) {
+  const href = articleHref(locale, article.slug);
   const byline = getAuthorName(article);
-  const time = formatPublished(article.published_at);
-  const sectionLink = sectionHref(article.section);
+  const time = formatPublished(article.published_at, locale);
+  const sectionLink = sectionHref(locale, article.section);
+  const title = getArticleTitle(article, locale);
+  const dek = getArticleDek(article, locale);
+  const sectionLabel =
+    dict.sectionLabels[article.section] ?? article.section;
+  const eyebrow =
+    locale === "en"
+      ? "font-sans text-eyebrow font-medium uppercase tracking-[1px]"
+      : "font-sans text-eyebrow font-medium";
+  const tf = locale === "ur" ? "font-urdu" : "font-serif";
 
   if (variant === "tile") {
     return (
       <article className={`group ${cardVariants({ variant: "tile" })}`}>
-        <Link href={href} className="relative mb-3 block aspect-[4/3] w-full overflow-hidden bg-[var(--bg-tertiary)]">
+        <Link
+          href={href}
+          className="relative mb-3 block aspect-[4/3] w-full overflow-hidden bg-[var(--bg-tertiary)]"
+        >
           {article.hero_image ? (
             <Image
               src={article.hero_image.url}
@@ -52,12 +73,17 @@ export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) 
             <div className="h-full w-full bg-[var(--bg-tertiary)]" />
           )}
         </Link>
-        <Link href={sectionLink} className="mb-1 inline-block font-sans text-eyebrow font-medium uppercase tracking-[1px] text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]">
-          {formatSectionLabel(article.section)}
+        <Link
+          href={sectionLink}
+          className={`mb-1 inline-block text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] ${eyebrow}`}
+        >
+          {sectionLabel}
         </Link>
         <Link href={href}>
-          <h3 className="font-serif text-card-lg font-medium text-[var(--text-primary)] group-hover:underline">
-            {article.title}
+          <h3
+            className={`${tf} text-card-lg font-medium text-[var(--text-primary)] group-hover:underline`}
+          >
+            {title}
           </h3>
         </Link>
         <p className="mt-2 font-sans text-byline text-[var(--text-tertiary)]">
@@ -90,18 +116,20 @@ export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) 
           <div className="flex flex-col gap-3">
             <Link
               href={sectionLink}
-            className="font-sans text-eyebrow font-medium uppercase tracking-[1px] text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
-          >
-            {formatSectionLabel(article.section)}
-          </Link>
+              className={`text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] ${eyebrow}`}
+            >
+              {sectionLabel}
+            </Link>
             <Link href={href}>
-              <h2 className="font-serif text-hero font-medium text-[var(--text-primary)] group-hover:underline">
-                {article.title}
+              <h2
+                className={`${tf} text-hero font-medium text-[var(--text-primary)] group-hover:underline`}
+              >
+                {title}
               </h2>
             </Link>
-            {article.dek ? (
+            {dek ? (
               <p className="font-sans text-dek text-[var(--text-secondary)]">
-                {article.dek}
+                {dek}
               </p>
             ) : null}
             <p className="font-sans text-byline text-[var(--text-tertiary)]">
@@ -119,13 +147,15 @@ export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) 
         <div className="flex flex-col gap-2">
           <Link
             href={sectionLink}
-            className="font-sans text-eyebrow font-medium uppercase tracking-[1px] text-[var(--text-tertiary)]"
+            className={`text-[var(--text-tertiary)] ${eyebrow}`}
           >
-            {formatSectionLabel(article.section)}
+            {sectionLabel}
           </Link>
           <Link href={href}>
-            <h3 className="font-serif text-card-lg font-medium text-[var(--text-primary)] group-hover:underline">
-              {article.title}
+            <h3
+              className={`${tf} text-card-lg font-medium text-[var(--text-primary)] group-hover:underline`}
+            >
+              {title}
             </h3>
           </Link>
           <p className="font-sans text-byline text-[var(--text-tertiary)]">
@@ -158,8 +188,10 @@ export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) 
         </Link>
         <div className="min-w-0 flex-1">
           <Link href={href}>
-            <h3 className="font-serif text-card-md font-medium text-[var(--text-primary)] group-hover:underline">
-              {article.title}
+            <h3
+              className={`${tf} text-card-md font-medium text-[var(--text-primary)] group-hover:underline`}
+            >
+              {title}
             </h3>
           </Link>
           <p className="mt-1 font-sans text-byline text-[var(--text-tertiary)]">
@@ -192,8 +224,10 @@ export function ArticleCard({ article, variant = "compact" }: ArticleCardProps) 
         </Link>
         <div className="min-w-0 flex-1">
           <Link href={href}>
-            <h3 className="font-serif text-card-md font-medium text-[var(--text-primary)] line-clamp-3 group-hover:underline">
-              {article.title}
+            <h3
+              className={`${tf} text-card-md font-medium text-[var(--text-primary)] line-clamp-3 group-hover:underline`}
+            >
+              {title}
             </h3>
           </Link>
           <p className="mt-1 font-sans text-byline text-[var(--text-tertiary)]">

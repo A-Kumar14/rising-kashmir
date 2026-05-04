@@ -1,7 +1,9 @@
 import type { Article } from "@/lib/article";
+import type { Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionary";
 import { sectionHref } from "@/lib/slug";
 import Link from "next/link";
-import { ArticleCard } from "./article-card";
+import { CardThumb, CardTile } from "./rk-cards";
 
 type Layout = "four-up" | "list";
 
@@ -10,8 +12,9 @@ type Props = {
   sectionSlug: string;
   articles: Article[];
   layout: Layout;
-  /** When true, omit outer max-width container (use inside a grid). */
   embedded?: boolean;
+  locale: Locale;
+  dict: UiDictionary;
 };
 
 export function SectionStrip({
@@ -20,42 +23,49 @@ export function SectionStrip({
   articles,
   layout,
   embedded = false,
+  locale,
+  dict,
 }: Props) {
   if (articles.length === 0) return null;
-  const more = sectionHref(sectionSlug);
+  const more = sectionHref(locale, sectionSlug);
+  const moreLabel =
+    locale === "ur" ? dict.rkSectionMoreLongUr : dict.rkSectionMoreLong;
+  const titleClass =
+    locale === "ur" ? "rk-strip__title is-urdu" : "rk-strip__title";
 
-  const inner = embedded
-    ? "px-0"
-    : "mx-auto max-w-container px-4 md:px-6";
+  const inner = embedded ? "rk-strip__inner" : "rk-strip__inner";
 
   return (
-    <section className="border-b border-theme bg-[var(--bg-primary)] py-8">
+    <section className="rk-strip">
       <div className={inner}>
-        <div className="mb-4 flex items-baseline justify-between border-b border-theme pb-2">
-          <h2 className="font-serif text-strip-header font-medium text-[var(--text-primary)]">
+        <header className="rk-strip__head">
+          <h2 className={titleClass}>
+            <span className="rk-strip__num" aria-hidden>
+              →
+            </span>{" "}
             {title}
           </h2>
-          <Link
-            href={more}
-            className="shrink-0 font-sans text-nav font-medium text-[var(--link)] hover:underline"
-          >
-            More →
+          <Link href={more} className="rk-strip__more">
+            {moreLabel}
           </Link>
-        </div>
+        </header>
 
         {layout === "four-up" ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+          <div className="rk-strip__grid">
             {articles.map((a) => (
-              <div key={a.id} className="border border-theme p-3">
-                <ArticleCard article={a} variant="tile" />
-              </div>
+              <CardTile key={a.id} article={a} locale={locale} dict={dict} />
             ))}
           </div>
         ) : (
-          <ul className="flex flex-col gap-4">
-            {articles.map((a) => (
+          <ul className="rk-strip__list">
+            {articles.map((a, i) => (
               <li key={a.id}>
-                <ArticleCard article={a} variant="thumb" />
+                <CardThumb
+                  article={a}
+                  locale={locale}
+                  dict={dict}
+                  idx={i}
+                />
               </li>
             ))}
           </ul>

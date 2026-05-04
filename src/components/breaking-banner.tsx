@@ -1,15 +1,23 @@
 "use client";
 
 import type { Article } from "@/lib/article";
+import { getArticleTitle } from "@/lib/article-display";
+import type { Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionary";
+import { rkRelTime } from "@/lib/rk-time";
 import { articleHref } from "@/lib/slug";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const INTERVAL_MS = 8000;
+const INTERVAL_MS = 5000;
 
-type Props = { articles: Article[] };
+type Props = {
+  articles: Article[];
+  locale: Locale;
+  dict: UiDictionary;
+};
 
-export function BreakingBanner({ articles }: Props) {
+export function BreakingBanner({ articles, locale, dict }: Props) {
   const list = articles.length > 0 ? articles : [];
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -21,7 +29,7 @@ export function BreakingBanner({ articles }: Props) {
       window.setTimeout(() => {
         setIndex((i) => (i + 1) % list.length);
         setVisible(true);
-      }, 180);
+      }, 200);
     }, INTERVAL_MS);
     return () => window.clearInterval(id);
   }, [list.length]);
@@ -31,29 +39,33 @@ export function BreakingBanner({ articles }: Props) {
   }
 
   const current = list[index] ?? list[0]!;
+  const titleClass =
+    locale === "ur"
+      ? "rk-breaking__title is-urdu"
+      : "rk-breaking__title";
 
   return (
-    <div
-      className="text-[var(--bg-primary)]"
-      style={{ backgroundColor: "var(--brand-red)" }}
-      role="region"
-      aria-label="Breaking news"
-    >
-      <div className="mx-auto flex h-9 max-w-container items-center gap-3 px-4 md:h-[36px] md:px-6">
-        <span className="shrink-0 rounded-full bg-[var(--bg-primary)] px-2 py-0.5 font-sans text-eyebrow font-medium uppercase tracking-[1px] text-[var(--brand-red)]">
-          Breaking
+    <div className="rk-breaking" role="region" aria-label={dict.breakingLabel}>
+      <div className="rk-breaking__inner">
+        <span className="rk-breaking__tag">
+          <span className="rk-breaking__pulse" aria-hidden />
+          {dict.breakingLabel}
         </span>
-        <div className="min-w-0 flex-1 overflow-hidden">
-          <p
-            className={`truncate font-sans text-nav font-medium transition-opacity duration-180 ${
-              visible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <Link href={articleHref(current.slug)} className="hover:underline">
-              {current.title}
-            </Link>
-          </p>
-        </div>
+        <ul className="rk-breaking__dots" aria-hidden>
+          {list.map((_, n) => (
+            <li key={n} className={n === index ? "is-on" : ""} />
+          ))}
+        </ul>
+        <Link
+          href={articleHref(locale, current.slug)}
+          className={`${titleClass} ${visible ? "" : "opacity-0"}`}
+          style={{ transition: "opacity 0.35s ease" }}
+        >
+          {getArticleTitle(current, locale)}
+        </Link>
+        <span className="rk-breaking__time">
+          {rkRelTime(current.published_at, locale)}
+        </span>
       </div>
     </div>
   );

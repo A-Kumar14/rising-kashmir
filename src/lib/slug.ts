@@ -1,3 +1,5 @@
+import type { Locale } from "@/i18n/config";
+
 const SLUG_REGEX = /^[a-z0-9-]+$/;
 
 export function isValidSlug(slug: string): boolean {
@@ -24,17 +26,17 @@ export function normalizeSlug(raw: string, context?: string): string {
   return normalized || "article";
 }
 
-export function articleHref(slug: string): string {
+export function articleHref(locale: Locale, slug: string): string {
   const safe = normalizeSlug(slug, "articleHref");
-  return `/article/${safe}`;
+  return `/${locale}/article/${safe}`;
 }
 
-export function sectionHref(section: string): string {
+export function sectionHref(locale: Locale, section: string): string {
   const safe = normalizeSlug(section, "sectionHref");
-  return `/section/${safe}`;
+  return `/${locale}/section/${safe}`;
 }
 
-export function columnistHref(slug: string): string {
+export function columnistHref(locale: Locale, slug: string): string {
   const safe = normalizeSlug(slug, "columnistHref");
-  return `/columnists/${safe}`;
+  return `/${locale}/columnists/${safe}`;
 }

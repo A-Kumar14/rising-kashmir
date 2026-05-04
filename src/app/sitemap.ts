@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { locales } from "@/i18n/config";
 import { articles, getColumnists } from "@/lib/cms";
 import { ALL_SECTION_SLUGS } from "@/lib/sections";
 
@@ -8,36 +9,51 @@ const BASE_URL =
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const staticEntries: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`, lastModified: now, changeFrequency: "hourly", priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
-    { url: `${BASE_URL}/columnists`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
-    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+  const staticPaths = [
+    "",
+    "/about",
+    "/contact",
+    "/privacy",
+    "/terms",
+    "/cookies",
+    "/columnists",
   ];
 
-  const sectionEntries: MetadataRoute.Sitemap = ALL_SECTION_SLUGS.map((s) => ({
-    url: `${BASE_URL}/section/${s}`,
-    lastModified: now,
-    changeFrequency: "hourly",
-    priority: 0.7,
-  }));
+  const staticEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    staticPaths.map((path) => ({
+      url: `${BASE_URL}/${locale}${path}`,
+      lastModified: now,
+      changeFrequency: path === "" ? ("hourly" as const) : ("monthly" as const),
+      priority: path === "" ? 1.0 : 0.4,
+    })),
+  );
 
-  const articleEntries: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${BASE_URL}/article/${a.slug}`,
-    lastModified: new Date(a.updated_at),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
+  const sectionEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    ALL_SECTION_SLUGS.map((s) => ({
+      url: `${BASE_URL}/${locale}/section/${s}`,
+      lastModified: now,
+      changeFrequency: "hourly" as const,
+      priority: 0.7,
+    })),
+  );
 
-  const columnistEntries: MetadataRoute.Sitemap = getColumnists().map((c) => ({
-    url: `${BASE_URL}/columnists/${c.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.5,
-  }));
+  const articleEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    articles.map((a) => ({
+      url: `${BASE_URL}/${locale}/article/${a.slug}`,
+      lastModified: new Date(a.updated_at),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  );
+
+  const columnistEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    getColumnists().map((c) => ({
+      url: `${BASE_URL}/${locale}/columnists/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    })),
+  );
 
   return [
     ...staticEntries,

@@ -29,4 +29,8 @@ export type Article = {
   updated_at: string;
   reading_time_minutes: number;
   is_breaking: boolean;
+  /** Optional Urdu (and future) overlays for headlines — body may stay English until CMS translations. */
+  i18n?: {
+    ur: { title: string; dek: string | null; body?: string };
+  };
 };
