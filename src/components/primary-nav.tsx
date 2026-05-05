@@ -29,6 +29,14 @@ export function PrimaryNav({
     return () => document.removeEventListener("click", onDoc);
   }, []);
 
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMoreOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   const isHome =
     pathname === homePath ||
     pathname === `/${locale}` ||

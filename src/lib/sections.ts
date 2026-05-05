@@ -13,9 +13,9 @@ export type PrimarySection = (typeof PRIMARY_SECTIONS)[number];
 export const MORE_SECTIONS: { label: string; href: string }[] = [
   { label: "Business", href: "/section/business" },
   { label: "Sci / Tech", href: "/section/sci-tech" },
+  { label: "Futurecraft", href: "/section/futurecraft" },
   { label: "Travel", href: "/section/travel" },
   { label: "Entertainment", href: "/section/entertainment" },
-  { label: "Editorial", href: "/section/opinion" },
   { label: "Video", href: "/section/entertainment" },
   { label: "E-Paper", href: "/e-paper" },
 ];
@@ -28,6 +28,7 @@ export const ALL_SECTION_SLUGS = [
   ...PRIMARY_SECTIONS,
   "business",
   "sci-tech",
+  "futurecraft",
   "travel",
   "entertainment",
 ] as const;

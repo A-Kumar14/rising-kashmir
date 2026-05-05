@@ -187,6 +187,7 @@ const en: UiDictionary = {
     "sci-tech": "Sci / Tech",
     travel: "Travel",
     entertainment: "Entertainment",
+    futurecraft: "Futurecraft",
   },
   aboutPageTitle: "About Rising Kashmir",
   aboutPageDescription:
@@ -281,9 +282,9 @@ const en: UiDictionary = {
   moreMenu: [
     { label: "Business", hrefSuffix: "/section/business" },
     { label: "Sci / Tech", hrefSuffix: "/section/sci-tech" },
+    { label: "FUTURECRAFT", hrefSuffix: "/section/futurecraft" },
     { label: "Travel", hrefSuffix: "/section/travel" },
     { label: "Entertainment", hrefSuffix: "/section/entertainment" },
-    { label: "Editorial", hrefSuffix: "/section/opinion" },
     { label: "Video", hrefSuffix: "/section/entertainment" },
     { label: "E-Paper", hrefSuffix: "/e-paper" },
   ],
@@ -351,6 +352,7 @@ const ur: UiDictionary = {
     sports: "کھیل",
     business: "کاروبار",
     "sci-tech": "سائنس / ٹیکنالوجی",
+    futurecraft: "فیوچرکرافٹ",
     travel: "سفر",
     entertainment: "تفریح",
   },
@@ -447,9 +449,9 @@ const ur: UiDictionary = {
   moreMenu: [
     { label: "کاروبار", hrefSuffix: "/section/business" },
     { label: "سائنس و ٹیکنالوجی", hrefSuffix: "/section/sci-tech" },
+    { label: "فیوچرکرافٹ", hrefSuffix: "/section/futurecraft" },
     { label: "سفر", hrefSuffix: "/section/travel" },
     { label: "تفریح", hrefSuffix: "/section/entertainment" },
-    { label: "اداریہ", hrefSuffix: "/section/opinion" },
     { label: "ویڈیو", hrefSuffix: "/section/entertainment" },
     { label: "ای پیپر", hrefSuffix: "/e-paper" },
   ],
