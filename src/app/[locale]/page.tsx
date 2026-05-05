@@ -19,6 +19,8 @@ import { notFound } from "next/navigation";
 import { CardThumb } from "@/components/rk-cards";
 import { getArticleTitle } from "@/lib/article-display";
 import Link from "next/link";
+import { RK_NEWS_VIDEOS, RK_PODCAST_NEWS, RK_SHORT_NEWS } from "@/content/youtube";
+import { YoutubeRail } from "@/components/youtube/youtube-rail";
 
 type Props = {
   params: { locale: string };
@@ -135,16 +137,31 @@ export default function HomePage(props: Props) {
           locale={locale}
           dict={dict}
         />
-        <SectionStrip
-          embedded
-          title={dict.sectionLabels.world}
-          sectionSlug="world"
-          articles={world}
-          layout="list"
-          locale={locale}
-          dict={dict}
-        />
+        <div className="rk-home-dual__stack">
+          <YoutubeRail title="RK Podcast News" videos={RK_PODCAST_NEWS} id="rk-podcast" />
+          <SectionStrip
+            embedded
+            title={dict.sectionLabels.world}
+            sectionSlug="world"
+            articles={world}
+            layout="list"
+            locale={locale}
+            dict={dict}
+          />
+        </div>
       </div>
+      <YoutubeRail
+        title="RK News"
+        videos={RK_NEWS_VIDEOS}
+        id="rk-news-v"
+        denseMeta
+      />
+      <YoutubeRail
+        title="RK Short News"
+        videos={RK_SHORT_NEWS}
+        id="rk-short-news"
+        denseMeta
+      />
       <NewsletterBand dict={dict} />
     </>
   );
