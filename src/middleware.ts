@@ -63,6 +63,7 @@ export function middleware(req: NextRequest) {
   if (first && isLocale(first)) {
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("x-locale", first);
+    requestHeaders.set("x-pathname", pathname);
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 

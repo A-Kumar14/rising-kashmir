@@ -1,9 +1,10 @@
+import { headers } from "next/headers";
 import type { Locale } from "@/i18n/config";
 import type { UiDictionary } from "@/i18n/dictionary";
 import { withLocale } from "@/i18n/path";
 import { rkDateline } from "@/lib/rk-time";
 import { getSrinagarWeatherLine } from "@/lib/weather";
-import { RkLocalePills } from "./rk-locale-pills";
+import { RkLocalePillsServer } from "./rk-locale-pills-server";
 import { RkThemeCycle } from "./rk-theme-client";
 import { UtilityAuthSlot } from "./utility-auth-slot";
 
@@ -15,6 +16,7 @@ export async function UtilityBar({
   dict: UiDictionary;
 }) {
   const weather = await getSrinagarWeatherLine();
+  const pathname = headers().get("x-pathname") ?? `/${locale}`;
   return (
     <div className="rk-util">
       <div className="rk-util__inner">
@@ -32,7 +34,7 @@ export async function UtilityBar({
           <span className="rk-util__weather">{weather ?? dict.utilityWeather}</span>
         </div>
         <div className="rk-util__right">
-          <RkLocalePills dict={dict} current={locale} />
+          <RkLocalePillsServer dict={dict} current={locale} pathname={pathname} />
           <span className="rk-util__sep" aria-hidden>
             │
           </span>
