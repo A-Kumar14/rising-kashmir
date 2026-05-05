@@ -137,19 +137,17 @@ export default function HomePage(props: Props) {
           locale={locale}
           dict={dict}
         />
-        <div className="rk-home-dual__stack">
-          <YoutubeRail title="RK Podcast News" videos={RK_PODCAST_NEWS} id="rk-podcast" />
-          <SectionStrip
-            embedded
-            title={dict.sectionLabels.world}
-            sectionSlug="world"
-            articles={world}
-            layout="list"
-            locale={locale}
-            dict={dict}
-          />
-        </div>
+        <SectionStrip
+          embedded
+          title={dict.sectionLabels.world}
+          sectionSlug="world"
+          articles={world}
+          layout="list"
+          locale={locale}
+          dict={dict}
+        />
       </div>
+      <YoutubeRail title="RK Podcast News" videos={RK_PODCAST_NEWS} id="rk-podcast" />
       <YoutubeRail
         title="RK News"
         videos={RK_NEWS_VIDEOS}
